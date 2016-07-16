@@ -1,0 +1,23 @@
+{% extends '../layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-2">
+            <div class="thumbnail">
+                <a href="/detail/{{movie._id}}">
+                    <img src="{{movie.poster}}" alt="{{movie.title}}">
+                </a>
+                <div class="caption">
+                    <h3>{{movie.title}}</h3>
+                    <p>
+                        <a href="btn btn-primary" href="/moive/{{movie._id}}">观看预告片</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
