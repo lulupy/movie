@@ -28,7 +28,19 @@ var UserSchema = new Schema({
     }
 })
 
-
+//Model实例方法
+UserSchema.methods = {
+  comparePassword: function(password){
+    var that = this;
+    return new Promise(function(resolve, reject){
+      bcrypt.hash(password, that.salt, function(err, hash){
+        if(err){ reject(err) }
+        var isMatch  = (hash===that.password)
+        resolve(isMatch)
+      })
+    })
+  }
+}
 UserSchema.pre('save', function(next) {
   var user = this
 

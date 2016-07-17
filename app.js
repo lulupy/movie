@@ -49,6 +49,26 @@ router.post('/user/signup', function*(){
     
 })
 
+//登陆
+router.post('/user/signin', function*(){
+    var user = this.request.body
+    try{
+        var _user = yield User.findOne({username: user.username})
+
+    }
+    catch(e){
+        console.log(e)
+    }
+
+    var isMatch = yield _user.comparePassword(user.password)
+
+    if(isMatch){
+        console.log('signin success')
+    }else{
+        console.log('signin fail')
+    }
+})
+
 router.get('/admin/user/list', function*(){
     var users = yield User.find({})
     this.body = yield utils.render('pages/user_list', {
