@@ -2,10 +2,12 @@ var utils = require('../utils')
 var Movie = require('../models/movie')
 
 function *index(){
+    var user = this.session.user
     var movies = yield Movie.fetch()
     this.body = yield utils.render('pages/index', {
         title: "首页",
-        movies: movies
+        movies: movies,
+        user: user
     })
 }
 
