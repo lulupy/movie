@@ -27,7 +27,7 @@ router.get('/admin/list', admin.list)
 
 //新加电影提交地址
 router.post('/admin/control/new', admin.new)
-
+router.delete('/admin/list', admin.delete)
 app.use(server('./static'))
 //必须在router.routes()之前
 app.use(koaBoby({multipart: true}))

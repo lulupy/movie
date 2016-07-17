@@ -22,7 +22,6 @@ function *_new(next){
   var movieObj = this.request.body
   var _movie
   var _id =  movieObj._id
-  console.log(movieObj)
   if(_id===''){
     _movie = new Movie({
       title: movieObj.title,
@@ -47,8 +46,22 @@ function *_new(next){
   this.status = 301
 
 }
+
+function *_delete(){
+  var id = this.request.query.id
+  var _movie = yield Movie.findById(id)
+  try{
+    yield _movie.remove()
+    this.body = 1
+  } 
+  catch(e){
+    console.log(e)
+    this.body = 0
+  }
+}
 module.exports = {
     admin: admin,
     list: list,
-    new: _new
+    new: _new,
+    delete: _delete
 }

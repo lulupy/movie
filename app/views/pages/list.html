@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 {% for movie in movies %}
-                <tr class="item-id-{{movie._id}}">
+                <tr class="item-id-{{movie._id.toString()}}">
                     <td> {{movie.title}}</td>
                     <td> {{movie.doctor}}</td>
                     <td> {{movie.country}}</td>
@@ -29,14 +29,14 @@
                     <td> {{movie.summary}}</td>
                     <td> {{movie.meta.createAt.toString()}}</td>
                     <td>
-                        <a href="/detail/{{movie._id}}" target="_blank",">查看
+                        <a href="/detail/{{movie._id.toString()}}" target="_blank",">查看
                         </a> 
                     </td>
                     <td>
-                        <a href="/admin/control/update/{{movie._id}}" target="_blank">修改</a>                    
+                        <a href="/admin/control/update/{{movie._id.toString()}}" target="_blank">修改</a>                    
                     </td>
                     <td>
-                        <button class="btn btn-danger del" type="button" data-id="{{movie._id}}">删除
+                        <button class="btn btn-danger del" type="button" data-id="{{movie._id.toString()}}">删除
                         </button>
                     </td> 
                 </tr>    
@@ -45,3 +45,5 @@
         </table>
     </div>
 </div>
+<script src="/js/admin.js"></script>
+{% endblock %}
