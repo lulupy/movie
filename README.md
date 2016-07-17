@@ -47,3 +47,15 @@ npm install mongoose --save
 - localhost:3000/admin/movie
 - localhost:3000/admin/list
 
+
+### 数据建模
+#### mongoose
+
+- schema 模式（数据结构）
+- model 模型
+- documents 文档
+
+##### schema 定义
+
+
+
