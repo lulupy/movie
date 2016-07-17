@@ -1,0 +1,28 @@
+{% extends '../layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>密码</th>
+                    <th>盐</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr class="item-id-{{user._id.toString()}}">
+                    <td> {{user.username}}</td>
+                    <td> {{user.password}}</td>
+                    <td> {{user.salt}}</td>
+                    
+                </tr>    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/admin.js"></script>
+{% endblock %}

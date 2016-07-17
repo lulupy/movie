@@ -1,5 +1,4 @@
-var utils = require('./utils')
-
+var utils = require('../utils')
 var Movie = require('../models/movie')
 
 function *detail(){

@@ -27,6 +27,7 @@ var MovieSchema = new Schema({
 
 //每次在存储数据的时候都会来调用这个方法
 MovieSchema.pre('save', function (next) {
+    console.log('save')
     if(this.isNew){//判断这个数据是否是新加的
         this.meta.createAt = this.meta.updateAt = new Date()
     }

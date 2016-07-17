@@ -39,14 +39,17 @@ UserSchema.pre('save', function(next) {
     this.meta.updateAt = Date.now()
   }
   //生成随机盐
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  bcrypt.genSalt(10, function(err, salt) {
     if (err) return next(err)
 
     bcrypt.hash(user.password, salt, function(err, hash) {
       if (err) return next(err)
       user.salt = salt
       user.password = hash
+      console.log(user)
       next()
     })
   })
 })
+
+module.exports = UserSchema

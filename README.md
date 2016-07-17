@@ -164,7 +164,7 @@ movie.remove()
 
 ##### UserSchema
 ```
-var MovieSchema = new Schema({
+var UserSchema = new Schema({
     username: {
         type: String,
         unique: true //表示不能重复
