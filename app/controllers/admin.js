@@ -4,7 +4,6 @@ var router = require('koa-router')()
 var Movie = require('../models/movie')
 var utils = require('./utils')
 function *admin(){
-    
     this.body = yield utils.render('pages/admin', {title: "后台录入页"})
 
 }

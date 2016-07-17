@@ -4,6 +4,7 @@
   "description": "###### 后台 - koa - koa-router - co-views - swig - mongoose",
   "main": "app.js",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "co-views": "^2.1.0",
     "koa": "^1.2.0",
