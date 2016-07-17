@@ -72,6 +72,11 @@ router.post('/user/signin', function*(){
     }
 })
 
+router.get('/user/signout', function*(){
+    this.session.user = null
+    this.redirect('/')
+})
+
 router.get('/admin/user/list', function*(){
     var users = yield User.find({})
     this.body = yield utils.render('pages/user_list', {
