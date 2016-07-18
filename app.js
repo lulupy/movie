@@ -96,6 +96,10 @@ app.use(session({
 app.use(server('./static'))
 //必须在router.routes()之前
 app.use(koaBoby({multipart: true}))
+
+app.use(function*(){
+    this.
+})
 app.use(router.routes())
 
 

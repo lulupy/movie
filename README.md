@@ -215,4 +215,82 @@ var UserSchema = new Schema({
     加盐就是在你原始明文密码的基础上，再加些字符串，然后哈希，
     增加密码复杂度， 这个过程就叫做加盐
 
+```
+UserSchema.pre('save', function(next) {
+
+  //生成随机盐
+  bcrypt.genSalt(10, function(err, salt) {
+    if (err) return next(err)
+    //哈希
+    bcrypt.hash(user.password, salt, function(err, hash) {
+      if (err) return next(err)
+      user.salt = salt
+      user.password = hash
+      console.log(user)
+      next()
+    })
+  })
+})
+```
+
+##### 登录
+```
+var _user = yield User.findOne({username: user.username})
+var isMatch = yield _user.comparePassword(user.password)
+
+
+//Model实例方法
+UserSchema.methods = {
+  comparePassword: function(password){
+    var that = this;
+    return new Promise(function(resolve, reject){
+      bcrypt.hash(password, that.salt, function(err, hash){
+        if(err){ reject(err) }
+        var isMatch  = (hash===that.password)
+        resolve(isMatch)
+      })
+    })
+  }
+}
+```
+
+##### 保持用户状态
+- 当我们比对了用户名和密码之后，我们应该记录用户的登陆状态
+- 因为http是无状态的协议, 我们必须加入一些信息来确定我们的身份
+- 可以使用cookie和session
+
+什么是cookie
+Cookie是服务器保存在浏览器的一小段文本信息，每个Cookie的大小一般不能超过4KB。浏览器每次向服务器发出请求，就会自动附上这段信息。可以在http头里看到这个信息
+
+http response 头中 设置set-cookie 也可以改变cookie
+
+什么是session
+session是服务端的概念,如果使用了session,当一次请求传到服务器端
+会去找http头中的cookie中是不是有session_id(也可以是其他的key), 
+如果没有就生成,下次再次请求的时候就带有session_id, 就可以找到对应的
+session, session中可以存储相关的信息，比如说用户登录信息,
+一个session_id 对应一个session, 也就是一个浏览器对应一个session,
+这样就可以区分用户
+
+
+### 权限管理
+新加一个role字段表示用户的角色
+可以是字符串类型
+```
+//admin 管理员
+//superadmin 超级管理员
+//noraml 普通用户
+role: String
+```
+
+也可以数字类型
+0 normal user 
+1 verfied user 通过认证的用户,比如说邮箱验证什么的 
+3 professonal user 资料写的比较完备的用户
+'> 10' admin
+'>50' superadmin 开发时,可以有这个用户,可以不用存入数据库
+
+也可以是其他的方式
+
+
    
