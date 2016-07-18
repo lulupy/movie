@@ -14,6 +14,10 @@ var UserSchema = new Schema({
 
     },
     salt: String,
+    role: {
+      type: Number,
+      default: 0
+    },
     meta: {
         createAt: {
             type: Date,
