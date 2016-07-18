@@ -1,0 +1,28 @@
+{% extends '../layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form action="/user/signup" method="POST">
+                <div class="modal-header">登陆</div>
+                <div class="form-group">
+                    <lable for="signinNname">用户名</lable>
+                    <input type="text" id="signinName" class="form-control" name="username">
+                </div>
+                <div class="form-group">
+                    <lable for="signinPassword">密码</lable>
+                    <input type="text" id="signinPassword" class="form-control" name="password">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button class="btn btn-success" type="submit">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+            
+</div>
+{% endblock %}

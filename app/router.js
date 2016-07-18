@@ -19,9 +19,11 @@ router.delete('/admin/movie/delete', movie.del)
 //注册
 
 router.post('/user/signup', user.signup)
+router.get('/signup', user.showSignup)
 
 //登陆
 router.post('/user/signin', user.signin)
+router.get('/signin', user.showSignin)
 
 router.get('/user/signout', user.signout)
 

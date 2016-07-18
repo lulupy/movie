@@ -21,6 +21,16 @@ module.exports.signup =  function*(){
     
 }
 
+module.exports.showSignin = function*(){
+    this.body = yield utils.render('pages/signin', {
+    title: '登录页面'
+  })
+}
+module.exports.showSignup = function*(){
+   this.body = yield utils.render('pages/signup', {
+    title: '注册页面'
+  })
+}
 
 module.exports.signin = function*(){
     var user = this.request.body
@@ -31,18 +41,22 @@ module.exports.signin = function*(){
     catch(e){
         console.log(e)
     }
-    if(_user){
+    if(!_user){
+        this.redirect('/signup')
+        
+    }
+    else{
         var isMatch = yield _user.comparePassword(user.password)
+        if(isMatch){
+            console.log('signin success')
+            this.session.user = _user
+            this.redirect('/')
+        }else{
+            this.redirect('/signin')
+        }    
     }
     
-
-    if(isMatch){
-        console.log('signin success')
-        this.session.user = _user
-        this.redirect('/')
-    }else{
-        console.log('signin fail')
-    }
+    
 }
 
 module.exports.signout = function*(){
