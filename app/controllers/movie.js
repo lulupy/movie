@@ -3,20 +3,28 @@ var _ = require('underscore')
 var router = require('koa-router')()
 var Movie = require('../models/movie')
 var utils = require('../utils')
-function *admin(){
-    this.body = yield utils.render('pages/admin', {title: "后台录入页"})
-
-}
 
 
-function *list(){
-    var movies = yield Movie.fetch()
-    this.body = yield utils.render('pages/list', {
-        title: "列表",
-        movies: movies
+//detail 
+module.exports.detail = function *(){
+    //this.params 获取url上的参数
+    var id = this.params.id
+    // var movie = yield Movie.findById(id)
+    var movie = yield Movie.findOne({_id: id}).exec()//exec 返回一个promise
+    this.body = yield utils.render('pages/detail', {
+        title: 'imooc '+ movie.title,
+        movie: movie
     })
 }
-function *_new(next){
+
+
+//admin new page
+module.exports.new = function *(){
+    this.body = yield utils.render('pages/admin', {title: "后台录入页"})
+}
+
+//admin save
+module.exports.save = function *(){
   //使用了koa-body,this.request.body为表单提交解析后的一个对象
   var movieObj = this.request.body
   var _movie
@@ -35,7 +43,7 @@ function *_new(next){
   else{
     _movie = yield Movie.findOne(_id)
   }
-  console.log(_movie, 111111)
+
   try{
     yield _movie.save()
   }catch(e){
@@ -43,10 +51,19 @@ function *_new(next){
   }
   this.redirect('/detail/'+ _movie._id)
   this.status = 301
-
 }
 
-function *_delete(){
+module.exports.list = function *(){
+    var movies = yield Movie.fetch()
+    this.body = yield utils.render('pages/list', {
+        title: "列表",
+        movies: movies
+    })
+}
+
+module.exports.del = function *(){
+
+
   var id = this.request.query.id
   var _movie = yield Movie.findById(id)
   try{
@@ -57,10 +74,4 @@ function *_delete(){
     console.log(e)
     this.body = 0
   }
-}
-module.exports = {
-    admin: admin,
-    list: list,
-    new: _new,
-    delete: _delete
 }

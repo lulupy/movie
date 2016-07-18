@@ -5,7 +5,7 @@
         var id = $this.attr('data-id');
         $.ajax({
             method: 'DELETE', 
-            url: '/admin/list?id='+id,
+            url: '/admin/movie/delete?id='+id,
             success: function(result){
                 console.log(result);
                 if(result=='1'){

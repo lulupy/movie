@@ -1,7 +1,7 @@
 var utils = require('../utils')
 var Movie = require('../models/movie')
 
-function *index(){
+module.exports.index = function *(){
     var user = this.session.user
     var movies = yield Movie.fetch()
     this.body = yield utils.render('pages/index', {
@@ -11,4 +11,3 @@ function *index(){
     })
 }
 
-module.exports = index
